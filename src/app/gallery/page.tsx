@@ -95,14 +95,6 @@ export default function Gallery() {
                             Quiet observations of ordinary life.
                         </p>
                     </div>
-                    <a
-                        href="https://www.instagram.com/artdaoho/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${UNDERLINE} self-start text-[14px] opacity-60 hover:opacity-100 focus-visible:opacity-100 lg:self-end`}
-                    >
-                        instagram
-                    </a>
                 </header>
 
                 <section aria-label="Works" className="flex flex-col gap-y-16 lg:flex-row lg:items-start lg:gap-4">

@@ -8,7 +8,7 @@ import { finishTransition, isTransitioning, pushWithTransition } from "../../lib
 import MobileNav from "../components/mobile-nav";
 import TopNav from "../components/top-nav";
 import Container from "../components/container";
-import { isExternal, LAST_PROJECT_KEY, projectHref, projects, projectsByDate, type Project } from "../data/projects";
+import { LAST_PROJECT_KEY, projectHref, projects, projectsByDate, type Project } from "../data/projects";
 
 const GLIDE = 0.18; // share of the remaining distance the strip covers each frame when scrolled with a wheel
 const DESKTOP_QUERY = "(min-width: 1024px)"; // Tailwind's `lg`, where the strip replaces the mobile list
@@ -184,7 +184,6 @@ function DesktopStrip() {
 function StripTile({ project, priority }: { project: Project; priority: boolean }) {
     const router = useRouter();
     const href = projectHref(project);
-    const external = href !== undefined && isExternal(href);
     const body = (
         <>
             <div
@@ -203,7 +202,7 @@ function StripTile({ project, priority }: { project: Project; priority: boolean 
                 />
                 {href && (
                     <span className="pointer-events-none absolute bottom-4 left-4 translate-y-1 rounded-full bg-[rgb(0_0_0/0.55)] px-3 py-1.5 font-geistMono text-[12px] text-dark-foreground opacity-0 backdrop-blur-md transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-                        {external ? "visit site ↗" : "view project"}
+                        view project
                     </span>
                 )}
             </div>
@@ -222,19 +221,6 @@ function StripTile({ project, priority }: { project: Project; priority: boolean 
     const className = "group block w-min shrink-0 outline-none focus-visible:underline";
 
     if (!href) return <div className={className}>{body}</div>;
-    if (external) {
-        return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${project.name}, opens in a new tab`}
-                className={className}
-            >
-                {body}
-            </a>
-        );
-    }
     return (
         <Link
             href={href}
@@ -285,17 +271,13 @@ function MobileLayout() {
                         </div>
 
                         {projectHref(project) && (
-                            <a
-                                href={projectHref(project)}
-                                {...(isExternal(projectHref(project) ?? "") && {
-                                    target: "_blank",
-                                    rel: "noopener noreferrer",
-                                })}
+                            <Link
+                                href={projectHref(project)!}
                                 className="mt-5 self-start inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground active:scale-95 transition-all text-foreground py-1 px-4 rounded-full"
                                 style={{ background: "color-mix(in srgb, var(--foreground-color) 8%, transparent)" }}
                             >
                                 View project
-                            </a>
+                            </Link>
                         )}
                     </article>
                 ))}

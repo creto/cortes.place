@@ -2,46 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    /*
-     * When a citation is hovered or focused, the rest of the prose steps back so
-     * the mention is the only lit thing on the line. That contrast is what makes
-     * the pattern read; without it a bright pill just looks highlighted.
-     *
-     * Dims `color`, not `opacity` — a child cannot exceed its parent's opacity,
-     * so an opacity-dimmed container could never let the mention stay bright.
-     */
-    .cited-prose {
-        transition: color 180ms ease;
-    }
-    .cited-prose:has(button:hover),
-    .cited-prose:has(button:focus-visible),
-    /* Holds the dim while the cursor sits on an open card. */
-    .cited-prose:has([data-cited-open="true"]) {
-        color: color-mix(in srgb, var(--foreground-color) 32%, transparent);
-    }
-
-    /* Inline prose link: a faint underline that firms up on hover or focus. */
-    .ink-link {
-        color: var(--foreground-color);
-        text-decoration-line: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
-        text-decoration-color: color-mix(in srgb, var(--foreground-color) 28%, transparent);
-        transition: text-decoration-color 150ms ease;
-        outline: none;
-    }
-    .ink-link:hover,
-    .ink-link:focus-visible {
-        text-decoration-color: currentColor;
-    }
-    .ink-link:focus-visible {
-        outline: 1px solid color-mix(in srgb, var(--foreground-color) 28%, transparent);
-        outline-offset: 3px;
-        border-radius: 2px;
-    }
-}
-
 /* Every view transition sets data-transition on <html> to say which kind it is. */
 :root[data-transition]::view-transition-old(root),
 :root[data-transition]::view-transition-new(root) {

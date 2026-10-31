@@ -6,11 +6,9 @@ export type Project = {
     description: string;
     tech: string[];
     year: string;
-    /** Omit to show the project without sending anyone anywhere. */
-    link?: string;
     /** Small raster preview, rendered from the original artwork. */
     thumb: string;
-    /** A project with its own page on the site; its tiles link there instead of out. */
+    /** A project with its own page on the site; its tiles open it. */
     page?: {
         tagline: string;
         /** The write-up under the tagline, so the page doesn't repeat it. */
@@ -27,10 +25,10 @@ export type Project = {
     };
 };
 
-/** Plain text with inline links. */
-export type Prose = (string | { text: string; href: string })[];
+/** Plain text, one string per run. */
+export type Prose = string[];
 
-/** A paragraph is plain text with inline links; a clip is a short muted video. */
+/** A paragraph is plain text; a clip is a short muted video. */
 export type StoryBlock =
     | { kind: "heading"; text: string }
     | { kind: "text"; parts: Prose }
@@ -55,592 +53,137 @@ export type Shot = {
 export const projects: Project[] = [
     {
         index: "01",
-        slug: "selfserve",
-        name: "Selfserve",
+        slug: "meridian",
+        name: "Meridian",
         description:
-            "Jira for hotel operations. Designed and shipped an internal platform that gives hotel staff a self-serve dashboard to manage tasks, track requests, and streamline day-to-day operations.",
-        tech: ["Next.js", "TypeScript", "Go"],
-        year: "Spring 2026",
-        link: "https://github.com/GenerateNU/selfserve",
-        thumb: "/projects/selfserve/selfserve-preview.webp",
+            "Landing de Meridian, el motor de formularios dinámicos de la suite 4US para personas y agentes de IA.",
+        tech: ["HTML", "CSS", "JavaScript"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/meridian.webp",
         page: {
-            tagline: "Jira for hotel operations.",
+            tagline: "Formularios que saben a dónde van.",
             about: [
-                { text: "SelfServe", href: "https://www.selfserve.tech/" },
-                " is a VC-backed startup that already had a client-facing app working with hotels. They came to ",
-                { text: "Generate Product Development", href: "https://generatenu.com/" },
-                " to build the hotel side from 0 to 1, an MVP that streamlines day-to-day operations for hotel staff. As a technical lead at Generate, I led the team of 6 engineers.",
+                "Presenta Meridian con el lema «Forms that know where they're going»: formularios que se construyen, se llenan, se enrutan por flujos, se archivan en PDF y se exponen a agentes vía MCP. Es una sola página estática, con un paisaje ilustrado como pie de página y el logo en lugar de un header.",
             ],
-            poster: "/projects/selfserve/selfserve-hero.webp",
-            cover: "/projects/selfserve/selfserve-header.webp",
-            share: "/projects/selfserve/selfserve-og.jpg",
-            story: [
-                { kind: "heading", text: "One board for the entire property" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Every task in the hotel lives on one board, organized by department or by team member. New work can be written in plain language; the assistant interprets it and fills in the details.",
-                    ],
-                },
-                {
-                    kind: "text",
-                    parts: [
-                        "Views that follow you. Inspired by Linear, saved views keep each person's sorting and filters, stay the same across pages, and are there the next time they log in.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "Web",
-                    shots: [
-                        {
-                            src: "/projects/selfserve/board.webp",
-                            frame: "/projects/selfserve/board.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "The SelfServe home board with columns for Food & Beverage, Maintenance, Room Flipping and Front Desk, and a Restock bar inventory card lifted out",
-                            title: "Home",
-                            caption:
-                                "Every open task by department, with the deadline, assignees and location on each card.",
-                        },
-                        {
-                            src: "/projects/selfserve/ai-web.webp",
-                            frame: "/projects/selfserve/ai-web.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "A request to the assistant to restock bar inventory in the lobby by 2pm for Rohan and Jolin, next to the task it filled in",
-                            title: "Task creation",
-                            caption:
-                                "Describe a task in a sentence, then review the assignees, deadline, priority and department before saving.",
-                        },
-                        {
-                            src: "/projects/selfserve/rooms-web.webp",
-                            frame: "/projects/selfserve/rooms-web.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "The Rooms page listing Room 100 with tags like High Priority, Needs Cleaning and Late Checkout, and a side panel of its open guest issues",
-                            title: "Rooms",
-                            caption: "Each room's status at a glance, with open issues to resolve from the side panel.",
-                        },
-                    ],
-                },
-                { kind: "heading", text: "On the floor" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Staff carry the same tasks on their phones. They pick up unassigned work, mark it done, and look up a room or a guest's needs.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "Mobile",
-                    shots: [
-                        {
-                            src: "/projects/selfserve/tasks-mobile.webp",
-                            frame: "/projects/selfserve/tasks-mobile.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "Three phones showing My Tasks, the Clean Up Spill task with a Mark as Done button, and a Task completed toast",
-                            title: "Tasks",
-                            caption: "My tasks and unassigned tasks, each a tap away from done.",
-                        },
-                        {
-                            src: "/projects/selfserve/ai-mobile.webp",
-                            frame: "/projects/selfserve/ai-mobile.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "Task creation on a phone, where a request for high priority steam towels on floor 4 becomes a suggested task with a deadline, recurrence and department",
-                            title: "Task creation",
-                            caption: "The same assistant on mobile, with the suggested task to edit before confirming.",
-                        },
-                        {
-                            src: "/projects/selfserve/rooms-mobile.webp",
-                            frame: "/projects/selfserve/rooms-mobile.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "Phones showing the rooms on Floor 1, Room 100's issues and tasks, and Lucy's guest profile with her Suite 401 booking and needs like wheelchair access and a peanut allergy",
-                            title: "Rooms and guests",
-                            caption:
-                                "Rooms by floor, and guest profiles with bookings and needs like accessibility or allergies.",
-                        },
-                    ],
-                },
-            ],
+            poster: "/projects/sites/meridian.webp",
         },
     },
     {
         index: "02",
-        slug: "dynami",
-        name: "Dynami",
+        slug: "login4us",
+        name: "LOGIN4US",
         description:
-            "A developer's Dynamic Island for the Mac notch. Agent permission prompts, pull request reviews and your calendar, glanceable and actionable without leaving what you're working on.",
-        tech: ["Swift", "SwiftUI", "GitHub API"],
-        year: "Spring 2026",
-        thumb: "/projects/dynami/dynami-cover.webp",
+            "Landing pública de LOGIN4US, la plataforma de autenticación privada con passkeys e identidades seudónimas de la suite 4US.",
+        tech: ["HTML", "CSS", "JavaScript", "Canvas"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/login4us.webp",
         page: {
-            tagline: "The Dynamic Island, for developers.",
+            tagline: "Inicia sesión sin entregar quién eres.",
             about: [
-                "Dynami lives in your Mac's notch and keeps the things that need your attention within reach while you work, from agent permission prompts and pull request activity to the next meeting on your calendar.",
+                "Explica la propuesta de LOGIN4US: passkeys, un identificador distinto para cada app y consentimiento granular. Tiene un campo de hashes ASCII animado en canvas, efectos de «descifrado» al hacer scroll y una intro de marca. Respeta reduced-motion y funciona sin JavaScript.",
             ],
-            video: "/projects/dynami/dynami-demo.mp4",
-            poster: "/projects/dynami/dynami-demo-poster.webp",
-            cover: "/projects/dynami/dynami-header.webp",
-            share: "/projects/dynami/dynami-og.jpg",
-            story: [
-                { kind: "heading", text: "Waiting on other people" },
-                {
-                    kind: "text",
-                    parts: [
-                        "On a team that ships quickly, much of the day is spent waiting on other people, whether for a review, an approval, or a second look at changes you thought were finished. I found myself refreshing GitHub to see whether anything had moved, and Dynami began as a way to let that information come to me instead.",
-                    ],
-                },
-                { kind: "heading", text: "Pull requests in the notch" },
-                {
-                    kind: "text",
-                    parts: [
-                        "The first version, which I ",
-                        { text: "shared on X", href: "https://x.com/daoho04/status/2035301956953018718" },
-                        ", was deliberately narrow. It watched my pull requests and, whenever one was approved, received requested changes, or needed my review, expanded the notch to show the title, repository, and status.",
-                    ],
-                },
-                {
-                    kind: "clip",
-                    src: "/projects/dynami/dynami-v1.mp4",
-                    poster: "/projects/dynami/dynami-v1-poster.webp",
-                    label: "v1, pull request notifications",
-                },
-                { kind: "heading", text: "Deploys, from a reply" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Later that day, ",
-                        {
-                            text: "one of the replies to that post",
-                            href: "https://x.com/Neesh774/status/2035493090534768663",
-                        },
-                        " came from Neesh, who asked for Vercel deployments going live or failing after a commit. The request was a no brainer, since once code is pushed, whether it deployed is usually the question that matters most. I ",
-                        {
-                            text: "shipped deployment tracking two days later",
-                            href: "https://x.com/daoho04/status/2036120047668609232",
-                        },
-                        ", and a failed preview build now appears in the notch before I would think to check for it.",
-                    ],
-                },
-                {
-                    kind: "clip",
-                    src: "/projects/dynami/dynami-v2.mp4",
-                    poster: "/projects/dynami/dynami-v2-poster.webp",
-                    label: "v2, a failed preview deploy",
-                },
-                { kind: "heading", text: "A small workspace" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Since then, Dynami has grown from a notification into a small workspace. Coding agents such as Claude pause to request permission before running commands, so that prompt now appears in the notch, where I can approve or deny it without leaving the editor. GitHub has a dedicated tab, and Home holds my calendar and what's currently playing.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "In the notch",
-                    start: 2,
-                    shots: [
-                        {
-                            src: "/projects/dynami/notch-collapsed-crop.webp",
-                            frame: "/projects/dynami/notch-collapsed-frame.webp",
-                            width: 1160,
-                            height: 420,
-                            alt: "Dynami collapsed into a small pill around the MacBook notch, with a green dot on the left and a music waveform on the right",
-                            title: "At rest",
-                            caption:
-                                "A small pill around the notch. The green dot means a Claude session finished, and the waveform means music is playing.",
-                        },
-                        {
-                            src: "/projects/dynami/notch-pr-alert-crop.webp",
-                            frame: "/projects/dynami/notch-pr-alert-frame.webp",
-                            width: 1160,
-                            height: 420,
-                            alt: "An alert under the notch for pull request 58, feat: swipeable day slider with drift, approved by Sam Rivera",
-                            title: "PR alert",
-                            caption:
-                                "The same alert as the first version, now showing the reviewer and the outcome at a glance.",
-                        },
-                        {
-                            src: "/projects/dynami/notch-claude-prompt-crop.webp",
-                            frame: "/projects/dynami/notch-claude-prompt-frame.webp",
-                            width: 1160,
-                            height: 420,
-                            alt: "A permission prompt under the notch reading dynami wants to use Bash, git push origin feat/day-slider, with Deny and Allow buttons",
-                            title: "Permission prompt",
-                            caption: "Deny or Allow here answers Claude Code directly.",
-                        },
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "The panel",
-                    shots: [
-                        {
-                            src: "/projects/dynami/notch-home-tab-crop.webp",
-                            frame: "/projects/dynami/notch-home-tab-frame.webp",
-                            width: 1200,
-                            height: 550,
-                            alt: "The Dynami panel on the Home tab, with Glitter by 070 Shake playing next to a calendar showing Friday the 23rd",
-                            title: "Home",
-                            caption: "What's playing next to the calendar, with a day slider and a Today button.",
-                        },
-                        {
-                            src: "/projects/dynami/notch-github-tab-crop.webp",
-                            frame: "/projects/dynami/notch-github-tab-frame.webp",
-                            width: 1200,
-                            height: 550,
-                            alt: "The Dynami panel on the GitHub tab, listing pull request 58 approved, 61 with a review requested, and 55 with failing checks",
-                            title: "GitHub",
-                            caption:
-                                "My pull requests and review requests. The count turns red when something needs attention.",
-                        },
-                        {
-                            src: "/projects/dynami/notch-claude-tab-crop.webp",
-                            frame: "/projects/dynami/notch-claude-tab-frame.webp",
-                            width: 1200,
-                            height: 550,
-                            alt: "The Dynami panel on the Claude tab, listing the dynami session running git push and the portfolio session finished",
-                            title: "Agent",
-                            caption: "Live sessions and what each one is doing.",
-                        },
-                    ],
-                },
-            ],
+            poster: "/projects/sites/login4us.webp",
         },
     },
     {
         index: "03",
-        slug: "vetruly",
-        name: "Vetruly",
+        slug: "mainframe",
+        name: "Mainframe®",
         description:
-            "Full-stack platform connecting pet owners with vetted care providers. Led a team of 5 engineers from concept to production.",
-        tech: ["Next.js", "TypeScript", "PostgreSQL"],
-        year: "Spring 2025",
-        link: "https://www.vetruly.com/",
-        thumb: "/projects/vetruly/vetruly-preview.webp",
+            "Landing hero a pantalla completa para Mainframe®, una agencia creativa ficticia: un ejercicio de diseño de interacción.",
+        tech: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/mainframe.webp",
         page: {
-            tagline: "Trusted vet care for recovering and medically complex pets.",
+            tagline: "Un hero que responde al cursor.",
             about: [
-                "Vetruly helps owners of pets recovering from surgery or living with complex conditions find vetted providers for post-op care, integrative care, specialty boarding and drop-in visits. ",
-                { text: "Katlyn", href: "https://www.vetruly.com/about" },
-                " brought the idea to ",
-                { text: "Generate Product Development", href: "https://generatenu.com/" },
-                ", and we built it from 0 to 1 as an MVP. I led the team of 5 engineers, and it's now a deployed product with pet owners and licensed providers using it.",
+                "Un video de fondo avanza o retrocede según el movimiento horizontal del mouse, el titular se escribe como en una máquina de escribir y la navegación tiene un menú móvil animado. Es una pieza de portafolio sobre motion design.",
             ],
-            poster: "/projects/vetruly/vetruly-hero.webp",
-            cover: "/projects/vetruly/vetruly-header.webp",
-            share: "/projects/vetruly/vetruly-og.jpg",
-            story: [
-                { kind: "heading", text: "Finding care" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Owners search a map for providers nearby, filtered by the kind of care their pet needs, then pick a time from the provider's profile.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "For owners",
-                    start: 1,
-                    shots: [
-                        {
-                            src: "/projects/vetruly/welcome-crop.webp",
-                            frame: "/projects/vetruly/welcome-frame.webp",
-                            width: 1200,
-                            height: 692,
-                            alt: "The Vetruly sign-in screen, a line drawing of a dog on a rust panel next to a Welcome to Vetruly form with email, Google and Microsoft options",
-                            title: "Welcome",
-                            caption: "Sign in with email, Google or Microsoft. Vets and vet techs join as providers.",
-                        },
-                        {
-                            src: "/projects/vetruly/explore-crop.webp",
-                            frame: "/projects/vetruly/explore-frame.webp",
-                            width: 1200,
-                            height: 692,
-                            alt: "A map of Boston with vets pinned on it, a search for post-operative care, and a card for Dr. Elizabeth Ulma with her rating, care types and price",
-                            title: "Explore providers",
-                            caption:
-                                "Providers on a map, filtered by post-op care, integrative care, specialty boarding or drop-ins.",
-                        },
-                        {
-                            src: "/projects/vetruly/profile-crop.webp",
-                            frame: "/projects/vetruly/profile-frame.webp",
-                            width: 1200,
-                            height: 692,
-                            alt: "Dr. Elizabeth Ulma's profile, with a verified MA license badge, her clinic's location, upcoming availability and a Book appointment button",
-                            title: "Vet profile",
-                            caption:
-                                "A verified license, the clinic, and the week's availability next to the booking button.",
-                        },
-                        {
-                            src: "/projects/vetruly/date-crop.webp",
-                            frame: "/projects/vetruly/date-frame.webp",
-                            width: 1200,
-                            height: 692,
-                            alt: "Step 3 of 7 of booking, a March 2025 calendar with the 14th selected and a column of open times with 2:00 PM chosen",
-                            title: "Choose a date",
-                            caption: "Booking is a short series of steps, with open times listed beside the calendar.",
-                        },
-                    ],
-                },
-                { kind: "heading", text: "After booking" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Both sides get a careboard. Owners keep each provider's messages and visit details in one thread, and providers accept or decline requests next to their inbox.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "Careboards",
-                    shots: [
-                        {
-                            src: "/projects/vetruly/owner-crop.webp",
-                            frame: "/projects/vetruly/owner-frame.webp",
-                            width: 1200,
-                            height: 692,
-                            alt: "Anna's Careboard, listing three vets on the left and a thread with Dr. Ulma showing an approved post-op home visit for Bruce",
-                            title: "Owner",
-                            caption:
-                                "Every provider an owner has booked, with the visit, files and replies in one thread.",
-                        },
-                        {
-                            src: "/projects/vetruly/provider-crop.webp",
-                            frame: "/projects/vetruly/provider-frame.webp",
-                            width: 1200,
-                            height: 692,
-                            alt: "Dr. Ulma's careboard, with her ratings and experience, three pending bookings to accept or decline, and a column of messages from owners",
-                            title: "Provider",
-                            caption:
-                                "Pending requests to accept or decline, with unread messages from owners alongside.",
-                        },
-                    ],
-                },
-            ],
+            poster: "/projects/sites/mainframe.webp",
         },
     },
     {
         index: "04",
-        slug: "three-stones",
-        name: "Three Stones",
+        slug: "bpm4us",
+        name: "BPM4US",
         description:
-            "Mobile app where everyday investors crowdfund real estate projects. Built sign-in, the home screen and search on a team of 5 engineers.",
-        tech: ["React Native", "Go", "Supabase"],
-        year: "Fall 2024",
-        link: "https://github.com/GenerateNU/3stones",
-        thumb: "/projects/3-stones/3-stones-preview.webp",
+            "Landing de una página para BPM4US, la plataforma BPM de TIGLOBAL para organizaciones que quieren automatizar sus procesos.",
+        tech: ["Next.js", "React", "TypeScript", "Motion"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/bpm4us.webp",
         page: {
-            tagline: "Real estate crowdfunding for everyday investors.",
+            tagline: "Que cada solicitud siga su camino.",
             about: [
-                "3 Stones is a mobile app where real estate developers raise money for their projects from everyday investors. Investors browse listings, put in small amounts, and build a portfolio that pays out when a property sells. It was a ",
-                { text: "Generate Product Development", href: "https://generatenu.com/" },
-                " project and one of my first full-stack projects, which made it a big learning experience. I was one of 5 software engineers working with 2 technical leads, and as an individual contributor I built sign-in, the home screen and search.",
+                "Presenta el motor BPMN 2.0 propio, los formularios dinámicos, los casos e integraciones, la bandeja BAM y la IA en el flujo. La página funciona como un carril de proceso: el scroll es su ejecución, y los cuatro colores del logo representan los estados del proceso.",
             ],
-            poster: "/projects/3-stones/3-stones-hero.webp",
-            cover: "/projects/3-stones/3-stones-header.webp",
-            share: "/projects/3-stones/3-stones-og.jpg",
-            story: [
-                { kind: "heading", text: "What I built" },
-                {
-                    kind: "text",
-                    parts: [
-                        "I built sign-in, the home screen and search, from the screens down to the backend. Home is the first thing investors see, with their portfolio value and how each investment is doing. Search is how they find new projects from the Explore tab.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "My flows",
-                    shots: [
-                        {
-                            src: "/projects/3-stones/discover-crop.webp",
-                            frame: "/projects/3-stones/discover-frame.webp",
-                            width: 1200,
-                            height: 749,
-                            alt: "Three phones showing the Explore tab with recommended and popular projects, search results for commercial development, and the project page for 931 1st Street",
-                            title: "Search",
-                            caption:
-                                "Explore, then search results with the expected return and timeline for each project.",
-                        },
-                        {
-                            src: "/projects/3-stones/portfolio-crop.webp",
-                            frame: "/projects/3-stones/portfolio-frame.webp",
-                            width: 1200,
-                            height: 749,
-                            alt: "The home screen welcoming Michael back with a $12,345.67 portfolio value and a list of his investments, next to the Your Portfolio screen",
-                            title: "Home",
-                            caption:
-                                "The investor's portfolio value up top, with their investments and how each one is doing.",
-                        },
-                    ],
-                },
-                { kind: "heading", text: "The rest of the app" },
-                {
-                    kind: "text",
-                    parts: [
-                        "The rest of the team built the other flows: investing in a project, following its updates, voting on an offer to sell, and withdrawing funds.",
-                    ],
-                },
-                {
-                    kind: "gallery",
-                    title: "Team flows",
-                    shots: [
-                        {
-                            src: "/projects/3-stones/invest-crop.webp",
-                            frame: "/projects/3-stones/invest-frame.webp",
-                            width: 1200,
-                            height: 749,
-                            alt: "A project's image gallery of a residential complex, next to a Payment Successful receipt with the transaction ID, date and total",
-                            title: "Invest",
-                            caption: "A project's photos and plans, then a receipt once the investment goes through.",
-                        },
-                        {
-                            src: "/projects/3-stones/updates-crop.webp",
-                            frame: "/projects/3-stones/updates-frame.webp",
-                            width: 1200,
-                            height: 749,
-                            alt: "A list of project updates, next to an update for 333 Market Street with a construction photo and the developer's contact details",
-                            title: "Project updates",
-                            caption: "Updates from the developer, each with photos and who to contact.",
-                        },
-                        {
-                            src: "/projects/3-stones/vote-crop.webp",
-                            frame: "/projects/3-stones/vote-frame.webp",
-                            width: 1200,
-                            height: 749,
-                            alt: "A project page with a Vote Required banner, next to the Vote on Sale screen with the offer price, closing date and the developer's note",
-                            title: "Vote on sale",
-                            caption: "When a developer gets an offer, investors read the terms and vote on the sale.",
-                        },
-                        {
-                            src: "/projects/3-stones/withdraw-crop.webp",
-                            frame: "/projects/3-stones/withdraw-frame.webp",
-                            width: 1200,
-                            height: 749,
-                            alt: "Three phones showing a profile with a connected Chase account, a withdrawal of $700 of available cash, and the pending transfer's details",
-                            title: "Withdraw",
-                            caption: "Move available cash to a connected bank and follow the pending transfer.",
-                        },
-                    ],
-                },
-            ],
+            poster: "/projects/sites/bpm4us.webp",
         },
     },
     {
         index: "05",
-        slug: "kairos",
-        name: "Kairos",
-        description:
-            "An automated job application bot. Send it a job link and it fills out the application, leaving only the few fields that need you before you submit.",
-        tech: [],
+        slug: "jdce-art",
+        name: "JDCE Art",
+        description: "Portafolio cinematográfico de fotografía de aves del fotógrafo Juan David Cortés Echeverría.",
+        tech: ["React", "TypeScript", "Three.js", "GSAP"],
         year: "Fall 2026",
-        thumb: "/projects/kairos/kairos-preview.webp",
+        thumb: "/projects/sites/jdce-art.webp",
         page: {
-            tagline: "Job applications, filled for you.",
+            tagline: "Un portal que entra por el ojo de un guacamayo.",
             about: [
-                "Kairos is an automated job application bot I built. Press ⌥J on a job posting and it fills out the application in the background, drafting written answers with a language model and leaving only what needs you for review. Nothing is submitted until you click Submit. It's still a work in progress, and I ",
-                { text: "shared an early prototype on X", href: "https://x.com/daoho04/status/2105051635902984354" },
-                ".",
+                "La experiencia arranca con un scroll que entra por el ojo de un guacamayo azul y amarillo hasta una constelación 3D de fotografías. Después vienen una selección de obras, un filmstrip con profundidad, un índice de especies, una pluma 3D y una hoja de contactos, con 55 fotos del archivo «Aves Bacanas».",
             ],
-            poster: "/projects/kairos/kairos-hero.webp",
-            cover: "/projects/kairos/kairos-header.webp",
-            share: "/projects/kairos/kairos-og.jpg",
-            story: [
-                { kind: "heading", text: "From a link" },
-                {
-                    kind: "text",
-                    parts: [
-                        "On a job posting, ⌥J sends the link to Kairos and it starts filling the application in the background. Written answers are drafted by a language model, either locally with Ollama or via API.",
-                    ],
-                },
-                {
-                    kind: "image",
-                    src: "/projects/kairos/hero-layers.webp",
-                    alt: "The Figma application form, the Kairos review panel and the link card stacked as tilted layers over a dark gradient",
-                    width: 1600,
-                    height: 900,
-                },
-                {
-                    kind: "gallery",
-                    title: "Filling",
-                    shots: [
-                        {
-                            src: "/projects/kairos/send-link.webp",
-                            frame: "/projects/kairos/send-link.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "A Greenhouse posting for Product Designer, New Grad at Figma open in Chrome, with a Kairos card showing the job's link and a Fill button",
-                            title: "Send a link",
-                            caption:
-                                "⌥J on a job page pulls the link from Chrome. Press Fill and Kairos takes it from there.",
-                        },
-                        {
-                            src: "/projects/kairos/language-model.webp",
-                            frame: "/projects/kairos/language-model.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "Kairos settings with the language model set to Google Gemini and gemini-2.5-flash, an API key field, and a Draft required written answers checkbox",
-                            title: "Language model",
-                            caption:
-                                "Choose what drafts the written answers, a local model with Ollama or one via API.",
-                        },
-                    ],
-                },
-                { kind: "heading", text: "Only what needs you" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Kairos only asks for what it can't fill. The review panel sits on the page with the fields left for you, and nothing is submitted until you click Submit.",
-                    ],
-                },
-                {
-                    kind: "image",
-                    src: "/projects/kairos/hero-macro.webp",
-                    alt: "A close, tilted crop of the Kairos review panel listing 3 fields that need you, next to the filled Figma form",
-                    width: 1600,
-                    height: 900,
-                },
-                { kind: "heading", text: "Review, then next" },
-                {
-                    kind: "text",
-                    parts: [
-                        "Applications are grouped by whether they're ready, need attention or are still in progress. Once one is submitted, the next is ready to open.",
-                    ],
-                },
-                {
-                    kind: "image",
-                    src: "/projects/kairos/hero-lifted.webp",
-                    alt: "The Kairos application drawer for Figma lifted at an angle over the applications list, with Queued and Submitted Figma toasts beside it",
-                    width: 1600,
-                    height: 900,
-                },
-                {
-                    kind: "gallery",
-                    title: "Reviewing",
-                    shots: [
-                        {
-                            src: "/projects/kairos/applications.webp",
-                            frame: "/projects/kairos/applications.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "The Kairos app listing applications under Ready for you, Needs attention and In progress, with a panel for Figma showing 21 fields filled, 3 that need you and 14 seconds to fill",
-                            title: "All applications",
-                            caption: "Every application by status, with how much was filled and what still needs you.",
-                        },
-                        {
-                            src: "/projects/kairos/queue-next.webp",
-                            frame: "/projects/kairos/queue-next.webp",
-                            width: 1600,
-                            height: 900,
-                            alt: "A Kairos link card above a Queued toast for the Figma application and a Submitted Figma toast with a button to open the next one, at Linear",
-                            title: "Queue and next",
-                            caption: "Queue one, keep going, and open the next application once the last is submitted.",
-                        },
-                    ],
-                },
+            poster: "/projects/sites/jdce-art.webp",
+        },
+    },
+    {
+        index: "06",
+        slug: "esperanza",
+        name: "Red de Esperanza Social",
+        description:
+            "Sitio institucional de la Fundación Red de Esperanza Social, ONG de Bogotá que trabaja por la alimentación y el bienestar de niñas, niños, familias y personas mayores.",
+        tech: ["Next.js", "React", "TypeScript", "Motion"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/esperanza.webp",
+        page: {
+            tagline: "Tejemos redes, sembramos esperanza.",
+            about: [
+                "Un sitio público para dar a conocer la misión de la fundación, su impacto (más de 1.000 personas alimentadas), su transparencia y cómo contactarla. Todo el contenido lleva una etiqueta de verificación para no publicar datos inventados. Incluye modo claro y oscuro, y un logo que reacciona al scroll.",
             ],
+            poster: "/projects/sites/esperanza.webp",
+        },
+    },
+    {
+        index: "07",
+        slug: "doc4us",
+        name: "DOC4US",
+        description:
+            "Sitio de producto de DOC4US, el sistema de gestión documental electrónica de TIGLOBAL para entidades y empresas.",
+        tech: ["Next.js", "React", "TypeScript"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/doc4us.webp",
+        page: {
+            tagline: "Gestión documental electrónica, explicada.",
+            about: [
+                "Un rediseño independiente del sitio de DOC4US. Presenta las capacidades del producto (radicación, expedientes, TRD, metadatos, flujos, accesos y reportes) con visualizaciones propias, y cada afirmación de producto está respaldada por un registro de claims verificables.",
+            ],
+            poster: "/projects/sites/doc4us.webp",
+        },
+    },
+    {
+        index: "08",
+        slug: "tiglobal",
+        name: "TIGLOBAL",
+        description:
+            "Prototipo del sitio corporativo de TIGLOBAL, empresa colombiana de software empresarial, para clientes corporativos y del sector público.",
+        tech: ["Next.js", "React", "TypeScript", "Three.js"],
+        year: "Fall 2026",
+        thumb: "/projects/sites/tiglobal.webp",
+        page: {
+            tagline: "Software empresarial, en 3D.",
+            about: [
+                "Un sitio de marketing multipágina (inicio, servicios, industrias, compañía, contacto y legales) con un hero 3D en React Three Fiber y una versión estática de respaldo.",
+            ],
+            poster: "/projects/sites/tiglobal.webp",
         },
     },
 ];
@@ -658,7 +201,5 @@ export const projectsByDate = [...projects].sort((a, b) => when(b) - when(a));
 /** sessionStorage key for the last project page viewed, so the strip can return to it. */
 export const LAST_PROJECT_KEY = "projects-last-viewed";
 
-/** Where a project's tile or button leads: its own page, its outside link, or nowhere. */
-export const projectHref = (p: Project) => (p.page ? `/projects/${p.slug}` : p.link);
-
-export const isExternal = (href: string) => /^https?:/.test(href);
+/** Where a project's tile or button leads: its own page, or nowhere. */
+export const projectHref = (p: Project) => (p.page ? `/projects/${p.slug}` : undefined);

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { ExternalLink, Github } from "lucide-react";
 import ThemeIcon from "./theme-icon";
 
 const navLinks = [
@@ -12,11 +11,6 @@ const navLinks = [
     { label: "Projects", href: "/projects" },
     { label: "Gallery", href: "/gallery" },
     { label: "Blog", href: "/blog" },
-];
-
-const secondaryLinks = [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/dao-ho/" },
-    { label: "GitHub", href: "https://github.com/Dao-Ho" },
 ];
 
 const fg = "var(--foreground-color)";
@@ -39,7 +33,7 @@ export default function MobileNav() {
                     style={{ background: pillBg, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
                 >
                     <span className="font-inter font-normal text-20 tracking-normal" style={{ color: fg }}>
-                        Dao Ho
+                        Gabriel Cortés
                     </span>
                     <div className="relative" style={{ width: "5vw", height: "5vw" }}>
                         <AnimatePresence mode="wait">
@@ -103,23 +97,6 @@ export default function MobileNav() {
                         </div>
 
                         <div className="flex-shrink-0 flex justify-center items-center gap-[8vw] pb-[10vh]">
-                            {secondaryLinks.map((link) => (
-                                <a
-                                    key={link.href}
-                                    href={link.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-inter text-[3.5vw] tracking-wide flex items-center gap-[1.5vw]"
-                                    style={{ color: fgDim }}
-                                >
-                                    {link.label}
-                                    {link.label === "GitHub" ? (
-                                        <Github size="3vw" strokeWidth={1.5} />
-                                    ) : (
-                                        <ExternalLink size="3vw" strokeWidth={1.5} />
-                                    )}
-                                </a>
-                            ))}
                             <button
                                 onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
                                 aria-label="Toggle theme"

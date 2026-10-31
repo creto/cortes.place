@@ -1,1 +1,1 @@
-Hey! Get to know me @ [daoho.dev](https://www.daoho.dev/) :)
+Portafolio personal de Gabriel Cortés: sitios web y productos digitales.

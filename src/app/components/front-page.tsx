@@ -1,24 +1,13 @@
 "use client";
 import { motion } from "motion/react";
-import Cited from "./citation";
 import Container from "./container";
-import type { PondStats } from "./koi-pond/koi-pond";
-import { SOURCES } from "../data/sources";
-
-const SOCIALS = [
-    { label: "github", href: "https://github.com/Dao-Ho" },
-    { label: "linkedin", href: "https://www.linkedin.com/in/dao-ho/" },
-    { label: "x", href: "https://x.com/daoho04" },
-];
-
-const UNDERLINE =
-    "underline decoration-[color-mix(in_srgb,var(--foreground-color)_35%,transparent)] decoration-1 underline-offset-[5px] outline-none transition-opacity duration-150 hover:decoration-foreground focus-visible:decoration-foreground";
+import type { GroveStats } from "./panda-grove/panda-grove";
 
 const QuoteLines = () => (
     <>
-        in an ocean of gluttony,
+        el bambú que se dobla
         <br />
-        cast a fine net
+        es más fuerte que el roble que resiste
         <span
             aria-hidden="true"
             className="ml-1 inline-block h-[1em] w-[0.55em] translate-y-[0.15em] animate-blink bg-foreground motion-reduce:animate-none"
@@ -26,52 +15,43 @@ const QuoteLines = () => (
     </>
 );
 
-const Socials = ({ className }: { className?: string }) => (
-    <p className={className}>
-        {SOCIALS.map(({ label, href }, i) => (
-            <span key={label}>
-                {i > 0 && <span className="opacity-40"> / </span>}
-                <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${UNDERLINE} opacity-60 hover:opacity-100 focus-visible:opacity-100`}
-                >
-                    {label}
-                </a>
-            </span>
-        ))}
-    </p>
+const Bio = () => (
+    <>
+        <h1>Hola, soy Gabriel Cortés.</h1>
+        <p>Diseño y construyo sitios web y productos digitales.</p>
+        <p>Del primer boceto a la página publicada: interfaces claras, animación con propósito y código cuidado.</p>
+        <p>Aquí reúno algunos de los sitios que he hecho.</p>
+    </>
 );
 
-const FrontPage = ({ stats }: { stats: PondStats }) => (
+const FrontPage = ({ stats }: { stats: GroveStats }) => (
     <>
         {mobilePage()}
         {desktopPage({ stats })}
     </>
 );
 
-const desktopPage = ({ stats }: { stats: PondStats }) => {
+const desktopPage = ({ stats }: { stats: GroveStats }) => {
     return (
         <Container
             as="header"
             className="relative flex h-full flex-col justify-end gap-10 max-lg:hidden bg-transparent pb-32 pt-32 text-foreground [@media(max-height:720px)]:gap-6 [@media(max-height:720px)]:pb-12 [@media(max-height:720px)]:pt-20"
         >
-            {stats.koi > 0 && (
+            {stats.pandas > 0 && (
                 <div
                     data-koi-avoid
                     aria-hidden="true"
                     className="absolute right-6 top-8 font-geistMono text-[11px] leading-relaxed tabular-nums lg:right-[20vw]"
                 >
-                    <div className="opacity-[0.32]">{stats.koi}</div>
-                    {/* The pellet count flashes each time it changes, tying a click or a bite to the number. */}
+                    <div className="opacity-[0.32]">{stats.pandas}</div>
+                    {/* The shoot count flashes each time it changes, tying a click or a last bite to the number. */}
                     <motion.div
-                        key={stats.pellets}
+                        key={stats.shoots}
                         initial={{ opacity: 1 }}
                         animate={{ opacity: 0.32 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
                     >
-                        {stats.pellets}
+                        {stats.shoots}
                     </motion.div>
                 </div>
             )}
@@ -86,36 +66,16 @@ const desktopPage = ({ stats }: { stats: PondStats }) => {
             </motion.blockquote>
             <motion.div
                 data-koi-avoid
-                className="cited-prose max-w-[54rem] font-geistMono text-[15px] leading-[max(22px,3vh)]"
+                className="max-w-[34rem] font-geistMono text-[15px] leading-[max(22px,3vh)]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
             >
-                <h1>Xin chào, I&apos;m Dao.</h1>
-                <p>
-                    Software Engineer @ <Cited source="googleIncoming">Google</Cited>, passionate about building the
-                    future.
-                </p>
-                <p>
-                    Before that, <Cited source="google">Google</Cited> (intern), <Cited source="agency">Agency</Cited>,
-                    and a few <Cited source="startups">early-stage startups</Cited>.
-                </p>
-                <p>
-                    Currently, building @ <Cited source="generate">Generate</Cited>, researching @{" "}
-                    <Cited source="parcs">PARCS Lab</Cited>.
-                </p>
-                <Socials className="mt-[1.5vh]" />
+                <Bio />
             </motion.div>
         </Container>
     );
 };
-
-// Hover cards need a pointer, so on touch the mentions link straight to each site.
-const MobileLink = ({ source, children }: { source: string; children: React.ReactNode }) => (
-    <a href={SOURCES[source].href} target="_blank" rel="noopener noreferrer" className={UNDERLINE}>
-        {children}
-    </a>
-);
 
 const mobilePage = () => {
     return (
@@ -140,20 +100,7 @@ const mobilePage = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
             >
-                <h1>Xin chào, I&apos;m Dao.</h1>
-                <p>
-                    Software Engineer @ <MobileLink source="googleIncoming">Google</MobileLink>, passionate about
-                    building the future.
-                </p>
-                <p>
-                    Before that, <MobileLink source="google">Google</MobileLink> (intern),{" "}
-                    <MobileLink source="agency">Agency</MobileLink>, and a few early-stage startups.
-                </p>
-                <p>
-                    Currently, building @ <MobileLink source="generate">Generate</MobileLink>, researching @{" "}
-                    <MobileLink source="parcs">PARCS Lab</MobileLink>.
-                </p>
-                <Socials className="mt-2" />
+                <Bio />
             </motion.div>
         </Container>
     );

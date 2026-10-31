@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import ThemeIcon from "./theme-icon";
 
 const LINKS = [
-    { label: "pond", href: "/" },
+    { label: "grove", href: "/" },
     { label: "projects", href: "/projects" },
     { label: "gallery", href: "/gallery" },
     { label: "blog", href: "/blog" },
@@ -44,7 +44,7 @@ export default function TopNav({ overCover = false }: TopNavProps) {
                     {label}
                 </Link>
             ))}
-            {/* A margin of dead space around the toggle, so a near miss doesn't drop food in the pond behind it. */}
+            {/* A margin of dead space around the toggle, so a near miss doesn't toss a shoot into the grove behind it. */}
             <span data-koi-ignore className="-m-4 flex p-4">
                 <button
                     type="button"

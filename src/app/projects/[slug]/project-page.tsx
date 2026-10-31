@@ -7,7 +7,6 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import MobileNav from "../../components/mobile-nav";
 import TopNav from "../../components/top-nav";
-import InlineLink from "../../components/inline-link";
 import {
     LAST_PROJECT_KEY,
     projects,
@@ -153,13 +152,6 @@ export default function ProjectPage({ slug }: { slug: string }) {
                     <p className={`${BODY} mt-8`}>
                         <Parts parts={page.about} />
                     </p>
-                    {project.link && (
-                        <p className="mt-4 text-[14px]">
-                            <InlineLink href={project.link}>
-                                {new URL(project.link).hostname.replace(/^www\./, "")}
-                            </InlineLink>
-                        </p>
-                    )}
                 </header>
 
                 <div className="mt-16">
@@ -361,15 +353,7 @@ function Story({ blocks, still }: { blocks: StoryBlock[]; still: boolean }) {
 }
 
 function Parts({ parts }: { parts: Prose }) {
-    return parts.map((part, i) =>
-        typeof part === "string" ? (
-            part
-        ) : (
-            <InlineLink key={i} href={part.href}>
-                {part.text}
-            </InlineLink>
-        )
-    );
+    return parts.join("");
 }
 
 const HOVER_INTENT_MS = 150;
