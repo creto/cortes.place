@@ -17,8 +17,8 @@ const INTERACTIVE = "a, button, input, textarea, select, label, [role='button'],
 const AVOID_TARGETS = "[data-koi-avoid]";
 // Re-measure the content boxes this often, in frames, to follow layout shifts and entrance animations.
 const MEASURE_EVERY_FRAMES = 30;
-// Content boxes closer than this merge, so pandas don't settle into the slot between them.
-const MERGE_GAP_PX = 160;
+// Content boxes closer than this merge. Kept tight, so the nav and the text each dim only the grove right under them.
+const MERGE_GAP_PX = 40;
 
 function mergeNearby(boxes: Box[]) {
     const merged: Box[] = [];

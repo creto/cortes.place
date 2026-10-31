@@ -35,7 +35,7 @@ const desktopPage = ({ stats }: { stats: GroveStats }) => {
     return (
         <Container
             as="header"
-            className="relative flex h-full flex-col justify-end gap-10 max-lg:hidden bg-transparent pb-32 pt-32 text-foreground [@media(max-height:720px)]:gap-6 [@media(max-height:720px)]:pb-12 [@media(max-height:720px)]:pt-20"
+            className="relative flex h-full flex-col justify-start gap-8 max-lg:hidden bg-transparent pt-[clamp(6rem,14vh,9rem)] text-foreground [@media(max-height:720px)]:gap-5 [@media(max-height:720px)]:pt-20"
         >
             {stats.pandas > 0 && (
                 <div
@@ -79,10 +79,10 @@ const desktopPage = ({ stats }: { stats: GroveStats }) => {
 
 const mobilePage = () => {
     return (
-        // Top padding clears the floating nav pill.
+        // Up top, under the floating nav pill, so the grove has the bottom of the screen to itself.
         <Container
             as="header"
-            className="flex h-full flex-col justify-end gap-8 lg:hidden bg-transparent pb-12 pt-28 font-geistMono text-foreground [@media(max-height:640px)]:gap-5 [@media(max-height:640px)]:pb-8"
+            className="flex h-full flex-col justify-start gap-6 lg:hidden bg-transparent pt-24 font-geistMono text-foreground [@media(max-height:640px)]:gap-4"
         >
             <motion.blockquote
                 data-koi-avoid
